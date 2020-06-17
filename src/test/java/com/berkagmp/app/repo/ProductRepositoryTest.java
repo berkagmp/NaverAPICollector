@@ -1,14 +1,12 @@
 package com.berkagmp.app.repo;
 
-import static org.junit.jupiter.api.Assertions.*;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.List;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.berkagmp.app.entity.Brand;
 import com.berkagmp.app.entity.Product;
 
@@ -16,46 +14,46 @@ import com.berkagmp.app.entity.Product;
 @Transactional
 class ProductRepositoryTest {
 
-	@Autowired
-	BrandRepository brandRepository;
+  @Autowired
+  BrandRepository brandRepository;
 
-	@Autowired
-	ProductRepository productRepository;
+  @Autowired
+  ProductRepository productRepository;
 
-	@Test
-	void insert_update() {
-		Brand b = brandRepository.save(new Brand("brand", true));
+  @Test
+  void insert_update() {
+    Brand b = brandRepository.save(new Brand("brand", true));
 
-		Product p = productRepository.save(new Product("product", true, "keyword", 10.0f, b.getId()));
+    Product p = productRepository.save(new Product("product", true, "keyword", 10.0f, b));
 
-		System.out.println(p.toString());
-		assertEquals(p.getName(), "product");
-		assertEquals(p.getActive(), true);
+    // System.out.println(p.toString());
+    assertEquals(p.getName(), "product");
+    assertEquals(p.getActive(), true);
 
-		try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+    try {
+      Thread.sleep(1000);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
 
-		p.setName("update");
-		p.setActive(false);
+    p.setName("update");
+    p.setActive(false);
 
-		p = productRepository.save(p);
+    p = productRepository.save(p);
 
-		System.out.println(p.toString());
-		assertEquals(p.getName(), "update");
-		assertEquals(p.getActive(), false);
-	}
+    // System.out.println(p.toString());
+    assertEquals(p.getName(), "update");
+    assertEquals(p.getActive(), false);
+  }
 
-	@Test
-	void list() {
-		Brand b = brandRepository.save(new Brand("brand", true));
+  @Test
+  void list() {
+    Brand b = brandRepository.save(new Brand("brand", true));
 
-		productRepository.save(new Product("product", true, "keyword", 10.0f, b.getId()));
+    productRepository.save(new Product("product", true, "keyword", 10.0f, b));
 
-		List<Product> list = productRepository.findAll();
-		assertTrue(list.size() > 0);
-	}
+    List<Product> list = productRepository.findAll();
+    assertTrue(list.size() > 0);
+  }
 
 }
