@@ -1,6 +1,7 @@
 package com.berkagmp.app.entity;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
@@ -9,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import lombok.AllArgsConstructor;
@@ -49,6 +51,9 @@ public class Product extends AudiableEntity implements Serializable {
   @ManyToOne
   @JoinColumn(name = "brand_id", nullable = false)
   private Brand brand;
+
+  @OneToMany(mappedBy = "product")
+  private List<Item> items;
 
   public Product(String name, Boolean active, String keyword, Float raw, Brand brand) {
     super();
