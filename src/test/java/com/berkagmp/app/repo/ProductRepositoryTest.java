@@ -38,6 +38,8 @@ class ProductRepositoryTest {
     assertNotNull(p.getId());
     assertEquals(p.getName(), "product");
     assertEquals(p.getActive(), true);
+    assertNotNull(p.getCreated_at());
+    assertNotNull(p.getUpdated_at());
 
     try {
       Thread.sleep(1000);
@@ -65,6 +67,13 @@ class ProductRepositoryTest {
   void listByActive() {
     List<Product> list = productRepository.findByActive(false);
     assertEquals(list.size(), 0);
+  }
+
+  @Test
+  void get() {
+    Product product = productRepository.getOne(p.getId());
+    assertNotNull(product.getCreated_at());
+    assertNotNull(product.getUpdated_at());
   }
 
 }

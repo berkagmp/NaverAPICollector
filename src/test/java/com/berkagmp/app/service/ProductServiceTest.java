@@ -1,6 +1,7 @@
 package com.berkagmp.app.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.List;
 import java.util.Optional;
@@ -37,6 +38,8 @@ class ProductServiceTest {
 
     assertEquals(p.getName(), "product");
     assertEquals(p.getActive(), true);
+    assertNotNull(p.getCreated_at());
+    assertNotNull(p.getUpdated_at());
 
     try {
       Thread.sleep(1000);
@@ -71,6 +74,8 @@ class ProductServiceTest {
     Optional<Product> product = productService.get(p.getId());
     assertTrue(product.isPresent());
     assertTrue(product.get().getActive());
+    assertNotNull(product.get().getCreated_at());
+    assertNotNull(product.get().getUpdated_at());
   }
 
 }

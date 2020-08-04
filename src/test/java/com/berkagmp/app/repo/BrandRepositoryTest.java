@@ -22,17 +22,19 @@ class BrandRepositoryTest {
 
   @BeforeEach
   void setup() {
+    System.out.println("@BeforeEach");
     b = brandRepository.save(new Brand("brand", true));
   }
 
   @Test
   void insert_update() {
-
     Integer i = b.getId();
 
     assertNotNull(b.getId());
     assertEquals(b.getName(), "brand");
     assertEquals(b.getActive(), true);
+    assertNotNull(b.getCreated_at());
+    assertNotNull(b.getUpdated_at());
 
     try {
       Thread.sleep(1000);
@@ -60,6 +62,13 @@ class BrandRepositoryTest {
   void listByActive() {
     List<Brand> list = brandRepository.findByActive(false);
     assertEquals(list.size(), 0);
+  }
+
+  @Test
+  void get() {
+    Brand brand = brandRepository.getOne(b.getId());
+    assertNotNull(brand.getCreated_at());
+    assertNotNull(brand.getUpdated_at());
   }
 
 }
