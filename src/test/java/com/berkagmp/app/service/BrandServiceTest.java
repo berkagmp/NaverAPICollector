@@ -1,10 +1,10 @@
 package com.berkagmp.app.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.List;
 import java.util.Optional;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,11 +18,17 @@ class BrandServiceTest {
   @Autowired
   BrandService brandService;
 
+  Brand b;
+
+  @BeforeEach
+  void setup() {
+    b = brandService.save(new Brand("brand", true));
+  }
+
   @Test
   void insert_update() {
-    Brand b = brandService.save(new Brand("brand", true));
+    Integer i = b.getId();
 
-    System.out.println(b.toString());
     assertEquals(b.getName(), "brand");
     assertEquals(b.getActive(), true);
 
@@ -37,26 +43,28 @@ class BrandServiceTest {
 
     b = brandService.save(b);
 
-    System.out.println(b.toString());
+    assertEquals(i, b.getId());
     assertEquals(b.getName(), "update");
     assertEquals(b.getActive(), false);
   }
 
   @Test
   void list() {
-    brandService.save(new Brand("brand", true));
-
     List<Brand> list = brandService.list();
     assertTrue(list.size() > 0);
   }
 
   @Test
-  void get() {
-    int brand_id = brandService.save(new Brand("brand", false)).getId();
+  void listByActive() {
+    List<Brand> list = brandService.listByActive(false);
+    assertEquals(list.size(), 0);
+  }
 
-    Optional<Brand> b = brandService.get(brand_id);
-    assertTrue(b.isPresent());
-    assertFalse(b.get().getActive());
+  @Test
+  void get() {
+    Optional<Brand> brand = brandService.get(b.getId());
+    assertTrue(brand.isPresent());
+    assertTrue(brand.get().getActive());
   }
 
 }

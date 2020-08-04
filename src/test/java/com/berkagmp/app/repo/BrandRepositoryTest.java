@@ -1,8 +1,10 @@
 package com.berkagmp.app.repo;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.List;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,11 +18,19 @@ class BrandRepositoryTest {
   @Autowired
   BrandRepository brandRepository;
 
+  Brand b;
+
+  @BeforeEach
+  void setup() {
+    b = brandRepository.save(new Brand("brand", true));
+  }
+
   @Test
   void insert_update() {
-    Brand b = brandRepository.save(new Brand("brand", true));
 
-    System.out.println(b.toString());
+    Integer i = b.getId();
+
+    assertNotNull(b.getId());
     assertEquals(b.getName(), "brand");
     assertEquals(b.getActive(), true);
 
@@ -35,17 +45,21 @@ class BrandRepositoryTest {
 
     b = brandRepository.save(b);
 
-    System.out.println(b.toString());
+    assertEquals(i, b.getId());
     assertEquals(b.getName(), "update");
     assertEquals(b.getActive(), false);
   }
 
   @Test
   void list() {
-    brandRepository.save(new Brand("brand", true));
-
     List<Brand> list = brandRepository.findAll();
     assertTrue(list.size() > 0);
+  }
+
+  @Test
+  void listByActive() {
+    List<Brand> list = brandRepository.findByActive(false);
+    assertEquals(list.size(), 0);
   }
 
 }

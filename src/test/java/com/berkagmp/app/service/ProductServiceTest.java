@@ -1,10 +1,10 @@
 package com.berkagmp.app.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.List;
 import java.util.Optional;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,12 +22,19 @@ class ProductServiceTest {
   @Autowired
   ProductService productService;
 
+  Brand b;
+  Product p;
+
+  @BeforeEach
+  void setup() {
+    b = brandService.save(new Brand("brand", true));
+    p = productService.save(new Product("product", true, "keyword", 10.0f, b));
+  }
+
   @Test
   void insert_update() {
-    Brand b = brandService.save(new Brand("brand", true));
-    Product p = productService.save(new Product("product", true, "keyword", 10.0f, b));
+    Integer i = p.getId();
 
-    System.out.println(p.toString());
     assertEquals(p.getName(), "product");
     assertEquals(p.getActive(), true);
 
@@ -42,29 +49,28 @@ class ProductServiceTest {
 
     p = productService.save(p);
 
-    System.out.println(p.toString());
+    assertEquals(i, p.getId());
     assertEquals(p.getName(), "update");
     assertEquals(p.getActive(), false);
   }
 
   @Test
   void list() {
-    Brand b = brandService.save(new Brand("brand", true));
-    productService.save(new Product("product", true, "keyword", 10.0f, b));
-
     List<Product> list = productService.list();
     assertTrue(list.size() > 0);
   }
 
   @Test
-  void get() {
-    Brand b = brandService.save(new Brand("brand", true));
-    int product_id =
-        productService.save(new Product("product", false, "keyword", 10.0f, b)).getId();
+  void listByActive() {
+    List<Product> list = productService.listByActive(false);
+    assertEquals(list.size(), 0);
+  }
 
-    Optional<Product> p = productService.get(product_id);
-    assertTrue(p.isPresent());
-    assertFalse(p.get().getActive());
+  @Test
+  void get() {
+    Optional<Product> product = productService.get(p.getId());
+    assertTrue(product.isPresent());
+    assertTrue(product.get().getActive());
   }
 
 }
