@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import com.berkagmp.app.entity.Item;
+import com.berkagmp.app.entity.Result;
 
 public interface ItemService {
   public List<Item> list();
@@ -26,4 +27,6 @@ public interface ItemService {
   public void delete(Long itemId);
 
   public Item verifyItem(Long id);
+
+  public Result collect(String keyword);
 }

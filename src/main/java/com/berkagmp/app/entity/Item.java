@@ -13,19 +13,26 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import com.google.gson.annotations.SerializedName;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
+/**
+ * @author berkagmp
+ *
+ */
+/**
+ * @author berkagmp
+ *
+ */
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-@ToString(callSuper = true, includeFieldNames = true)
 @Entity
 @Table(name = "items")
 @EntityListeners(AuditingEntityListener.class)
@@ -37,6 +44,7 @@ public class Item implements Serializable {
   private Long id;
 
   @Column(name = "p_id", nullable = false)
+  @SerializedName("productId")
   private String pId;
 
   @Column(name = "p_name", nullable = false)
@@ -52,10 +60,10 @@ public class Item implements Serializable {
   private Integer lprice;
 
   @Column(name = "delivery_fee", nullable = true)
-  private Integer deliveryFee;
+  private Integer deliveryFee = 0;
 
   @Column(name = "sum", nullable = true)
-  private Integer sum;
+  private Integer sum = 0;
 
   @Column(name = "active", nullable = false)
   private Boolean active = true;
@@ -80,6 +88,14 @@ public class Item implements Serializable {
     this.sum = sum;
     this.active = active;
     this.product = product;
+  }
+
+  @Override
+  public String toString() {
+    return "Item [id=" + id + ", pId=" + pId + ", title=" + title + ", mallName=" + mallName
+        + ", link=" + link + ", lprice=" + lprice + ", deliveryFee=" + deliveryFee + ", sum=" + sum
+        + ", active=" + active + ", created_at=" + created_at + ", product_id=" + product.getId()
+        + "]";
   }
 
 }
