@@ -32,8 +32,10 @@ class BrandServiceTest {
 
     assertEquals(b.getName(), "brand");
     assertEquals(b.getActive(), true);
-    assertNotNull(b.getCreated_at());
-    assertNotNull(b.getUpdated_at());
+    assertNotNull(b.getCreatedAt());
+    assertNotNull(b.getUpdatedAt());
+
+    System.out.println(b.toString());
 
     try {
       Thread.sleep(1000);
@@ -49,6 +51,8 @@ class BrandServiceTest {
     assertEquals(i, b.getId());
     assertEquals(b.getName(), "update");
     assertEquals(b.getActive(), false);
+
+    System.out.println(b.toString());
   }
 
   @Test
@@ -68,8 +72,8 @@ class BrandServiceTest {
     Optional<Brand> brand = brandService.get(b.getId());
     assertTrue(brand.isPresent());
     assertTrue(brand.get().getActive());
-    assertNotNull(brand.get().getCreated_at());
-    assertNotNull(brand.get().getUpdated_at());
+    assertNotNull(brand.get().getCreatedAt());
+    assertNotNull(brand.get().getUpdatedAt());
   }
 
 }

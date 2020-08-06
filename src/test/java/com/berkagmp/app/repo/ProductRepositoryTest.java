@@ -38,8 +38,8 @@ class ProductRepositoryTest {
     assertNotNull(p.getId());
     assertEquals(p.getName(), "product");
     assertEquals(p.getActive(), true);
-    assertNotNull(p.getCreated_at());
-    assertNotNull(p.getUpdated_at());
+    assertNotNull(p.getCreatedAt());
+    assertNotNull(p.getUpdatedAt());
 
     try {
       Thread.sleep(1000);
@@ -72,8 +72,8 @@ class ProductRepositoryTest {
   @Test
   void get() {
     Product product = productRepository.getOne(p.getId());
-    assertNotNull(product.getCreated_at());
-    assertNotNull(product.getUpdated_at());
+    assertNotNull(product.getCreatedAt());
+    assertNotNull(product.getUpdatedAt());
   }
 
 }

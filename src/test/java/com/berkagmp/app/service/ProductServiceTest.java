@@ -38,8 +38,8 @@ class ProductServiceTest {
 
     assertEquals(p.getName(), "product");
     assertEquals(p.getActive(), true);
-    assertNotNull(p.getCreated_at());
-    assertNotNull(p.getUpdated_at());
+    assertNotNull(p.getCreatedAt());
+    assertNotNull(p.getUpdatedAt());
 
     try {
       Thread.sleep(1000);
@@ -74,8 +74,8 @@ class ProductServiceTest {
     Optional<Product> product = productService.get(p.getId());
     assertTrue(product.isPresent());
     assertTrue(product.get().getActive());
-    assertNotNull(product.get().getCreated_at());
-    assertNotNull(product.get().getUpdated_at());
+    assertNotNull(product.get().getCreatedAt());
+    assertNotNull(product.get().getUpdatedAt());
   }
 
 }

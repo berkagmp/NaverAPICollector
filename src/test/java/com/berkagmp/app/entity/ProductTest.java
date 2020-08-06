@@ -18,8 +18,8 @@ class ProductTest {
     assertEquals(p.getActive(), true);
     assertEquals(p.getKeyword(), "keyword");
     assertEquals(p.getRaw(), 10.0f);
-    assertNull(p.getCreated_at());
-    assertNull(p.getUpdated_at());
+    assertNull(p.getCreatedAt());
+    assertNull(p.getUpdatedAt());
   }
 
   @Test

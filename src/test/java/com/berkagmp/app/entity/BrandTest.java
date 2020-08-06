@@ -16,8 +16,8 @@ class BrandTest {
     assertNull(b.getId());
     assertEquals(b.getName(), "brand");
     assertEquals(b.getActive(), true);
-    assertNull(b.getCreated_at());
-    assertNull(b.getUpdated_at());
+    assertNull(b.getCreatedAt());
+    assertNull(b.getUpdatedAt());
   }
 
   @Test

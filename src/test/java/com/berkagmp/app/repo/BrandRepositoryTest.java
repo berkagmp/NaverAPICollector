@@ -3,6 +3,8 @@ package com.berkagmp.app.repo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -28,13 +30,17 @@ class BrandRepositoryTest {
 
   @Test
   void insert_update() {
+    final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
     Integer i = b.getId();
 
     assertNotNull(b.getId());
     assertEquals(b.getName(), "brand");
     assertEquals(b.getActive(), true);
-    assertNotNull(b.getCreated_at());
-    assertNotNull(b.getUpdated_at());
+    assertNotNull(b.getCreatedAt());
+    assertNotNull(b.getUpdatedAt());
+
+    System.out.println(dateFormat.format(new Date()));
+    System.out.println(b.toString());
 
     try {
       Thread.sleep(1000);
@@ -45,11 +51,14 @@ class BrandRepositoryTest {
     b.setName("update");
     b.setActive(false);
 
-    b = brandRepository.save(b);
+    b = brandRepository.saveAndFlush(b);
 
     assertEquals(i, b.getId());
     assertEquals(b.getName(), "update");
     assertEquals(b.getActive(), false);
+
+    System.out.println(dateFormat.format(new Date()));
+    System.out.println(b.toString());
   }
 
   @Test
@@ -67,8 +76,8 @@ class BrandRepositoryTest {
   @Test
   void get() {
     Brand brand = brandRepository.getOne(b.getId());
-    assertNotNull(brand.getCreated_at());
-    assertNotNull(brand.getUpdated_at());
+    assertNotNull(brand.getCreatedAt());
+    assertNotNull(brand.getUpdatedAt());
   }
 
 }
