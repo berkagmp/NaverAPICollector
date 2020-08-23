@@ -3,6 +3,7 @@ package com.berkagmp.app.repo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -51,7 +52,7 @@ class ItemRepositoryTest {
     assertEquals(i.getDeliveryFee(), 2000);
     assertEquals(i.getSum(), 12000);
     assertTrue(i.getActive());
-    assertNotNull(i.getCreated_at());
+    assertNotNull(i.getCreatedAt());
 
     try {
       Thread.sleep(1000);
@@ -86,7 +87,7 @@ class ItemRepositoryTest {
   @Test
   void get() {
     Item item = itemRepository.getOne(i.getId());
-    assertNotNull(item.getCreated_at());
+    assertNotNull(item.getCreatedAt());
   }
 
   @Test

@@ -11,10 +11,12 @@ import lombok.ToString;
 @ToString
 @Component
 public class Result {
+
   private String lastBuildDate;
   private String total;
   private String start;
   private String display;
 
   private List<Item> items;
+
 }

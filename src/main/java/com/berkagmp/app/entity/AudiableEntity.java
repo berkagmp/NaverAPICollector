@@ -15,6 +15,7 @@ import lombok.ToString;
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 public abstract class AudiableEntity {
+
   @Column(nullable = false, name = "created_at", updatable = false)
   @CreatedDate
   private Date createdAt;
@@ -22,4 +23,5 @@ public abstract class AudiableEntity {
   @Column(nullable = false, name = "updated_at")
   @LastModifiedDate
   private Date updatedAt;
+
 }

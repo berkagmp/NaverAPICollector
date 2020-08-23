@@ -3,6 +3,7 @@ package com.berkagmp.app.repo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -24,7 +25,6 @@ class BrandRepositoryTest {
 
   @BeforeEach
   void setup() {
-    System.out.println("@BeforeEach");
     b = brandRepository.save(new Brand("brand", true));
   }
 

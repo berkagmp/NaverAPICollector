@@ -7,9 +7,12 @@ import com.berkagmp.app.entity.Item;
 import com.berkagmp.app.entity.Result;
 
 public interface ItemService {
+
   public List<Item> list();
 
   public List<Item> listByActive(Boolean active);
+
+  public List<Item> listByStatusAndCreatedAt(Boolean status, String createdAt);
 
   public Optional<Item> get(Long id);
 
@@ -29,4 +32,7 @@ public interface ItemService {
   public Item verifyItem(Long id);
 
   public Result collect(String keyword);
+
+  public void collectDeliveryFee();
+
 }

@@ -1,6 +1,10 @@
 package com.berkagmp.app.service;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
@@ -30,7 +34,6 @@ public class ItemCollectTest {
         return i;
       }).collect(Collectors.toList());
 
-
       items.forEach(i -> itemService.save(i));
     });
 
@@ -40,4 +43,16 @@ public class ItemCollectTest {
 
     assertTrue(items.size() > 0);
   }
+
+  @Test
+  void listByStatusAndCreatedAt() {
+    collect();
+
+    LocalDate today = LocalDate.now();
+    String formattedDate = today.format(DateTimeFormatter.ofPattern("yyMMdd"));
+
+    List<Item> items = itemService.listByStatusAndCreatedAt(false, formattedDate);
+    assertTrue(items.size() > 0);
+  }
+
 }

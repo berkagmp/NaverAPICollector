@@ -9,6 +9,7 @@ import java.net.URLEncoder;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -50,6 +51,11 @@ public class ItemServiceImpl implements ItemService {
   }
 
   @Override
+  public List<Item> listByStatusAndCreatedAt(Boolean status, String createdAt) {
+    return itemRepository.findByStatusAndCreatedAt(status, createdAt);
+  }
+
+  @Override
   public Optional<Item> get(Long id) {
     return itemRepository.findById(id);
   }
@@ -84,29 +90,37 @@ public class ItemServiceImpl implements ItemService {
 
     Item item = verifyItem(itemId);
 
-    if (pId != null)
-      item.setPId(pId);
+      if (pId != null) {
+          item.setPId(pId);
+      }
 
-    if (title != null)
-      item.setTitle(title);
+      if (title != null) {
+          item.setTitle(title);
+      }
 
-    if (mallName != null)
-      item.setMallName(mallName);
+      if (mallName != null) {
+          item.setMallName(mallName);
+      }
 
-    if (link != null)
-      item.setLink(link);
+      if (link != null) {
+          item.setLink(link);
+      }
 
-    if (lprice != null)
-      item.setLprice(lprice);
+      if (lprice != null) {
+          item.setLprice(lprice);
+      }
 
-    if (deliveryFee != null)
-      item.setDeliveryFee(deliveryFee);
+      if (deliveryFee != null) {
+          item.setDeliveryFee(deliveryFee);
+      }
 
-    if (sum != null)
-      item.setSum(sum);
+      if (sum != null) {
+          item.setSum(sum);
+      }
 
-    if (active != null)
-      item.setActive(active);
+      if (active != null) {
+          item.setActive(active);
+      }
 
     return itemRepository.save(item);
   }
@@ -119,7 +133,8 @@ public class ItemServiceImpl implements ItemService {
   @Override
   public Item verifyItem(Long id) {
     return itemRepository.findById(id)
-        .orElseThrow(() -> new NoSuchElementException("Item does not exist " + id));
+                         .orElseThrow(
+                             () -> new NoSuchElementException("Item does not exist " + id));
   }
 
   @Override
@@ -165,6 +180,11 @@ public class ItemServiceImpl implements ItemService {
     }
 
     return result;
+  }
+
+  @Override
+  public void collectDeliveryFee() {
+
   }
 
 }

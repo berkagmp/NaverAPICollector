@@ -3,6 +3,7 @@ package com.berkagmp.app.service;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
@@ -52,7 +53,7 @@ class ItemServiceTest {
     assertEquals(i.getDeliveryFee(), 2000);
     assertEquals(i.getSum(), 12000);
     assertTrue(i.getActive());
-    assertNotNull(i.getCreated_at());
+    assertNotNull(i.getCreatedAt());
 
     try {
       Thread.sleep(1000);
@@ -89,7 +90,7 @@ class ItemServiceTest {
     Optional<Item> item = itemService.get(i.getId());
     assertTrue(item.isPresent());
     assertTrue(item.get().getActive());
-    assertNotNull(item.get().getCreated_at());
+    assertNotNull(item.get().getCreatedAt());
   }
 
   @Test

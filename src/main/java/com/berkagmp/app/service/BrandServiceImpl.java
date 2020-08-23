@@ -11,6 +11,7 @@ import com.berkagmp.app.repo.BrandRepository;
 
 @Service
 public class BrandServiceImpl implements BrandService {
+
   BrandRepository brandRepository;
 
   @Autowired
@@ -49,11 +50,13 @@ public class BrandServiceImpl implements BrandService {
       throws NoSuchElementException {
     Brand brand = verifyBrand(brandId);
 
-    if (name != null)
+    if (name != null) {
       brand.setName(name);
+    }
 
-    if (active != null)
+    if (active != null) {
       brand.setActive(active);
+    }
 
     return brandRepository.save(brand);
   }
@@ -65,6 +68,8 @@ public class BrandServiceImpl implements BrandService {
 
   public Brand verifyBrand(int id) {
     return brandRepository.findById(id)
-        .orElseThrow(() -> new NoSuchElementException("Brand does not exist " + id));
+                          .orElseThrow(
+                              () -> new NoSuchElementException("Brand does not exist " + id));
   }
+
 }

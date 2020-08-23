@@ -6,6 +6,7 @@ import java.util.Optional;
 import com.berkagmp.app.entity.Brand;
 
 public interface BrandService {
+
   public List<Brand> list();
 
   public List<Brand> listByActive(Boolean active);
@@ -22,4 +23,5 @@ public interface BrandService {
   public void delete(Integer brandId);
 
   public Brand verifyBrand(int id);
+
 }

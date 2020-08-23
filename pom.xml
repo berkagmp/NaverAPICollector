@@ -10,9 +10,9 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.berkagmp</groupId>
-	<artifactId>NaverAPICollector</artifactId>
+	<artifactId>naver-api-collector</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>NaverAPICollector</name>
+	<name>naver-api-collector</name>
 	<description>Naver API Data Collector</description>
 
 	<properties>

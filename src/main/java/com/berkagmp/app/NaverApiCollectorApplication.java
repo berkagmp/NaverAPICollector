@@ -8,8 +8,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 @EnableJpaAuditing
 public class NaverApiCollectorApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(NaverApiCollectorApplication.class, args);
-	}
+  public static void main(String[] args) {
+    SpringApplication.run(NaverApiCollectorApplication.class, args);
+  }
 
 }

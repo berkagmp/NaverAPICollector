@@ -6,6 +6,7 @@ import java.util.Optional;
 import com.berkagmp.app.entity.Product;
 
 public interface ProductService {
+
   public List<Product> list();
 
   public List<Product> listByActive(Boolean active);
@@ -23,4 +24,5 @@ public interface ProductService {
   public void delete(Integer productId);
 
   public Product verifyProduct(int id);
+
 }

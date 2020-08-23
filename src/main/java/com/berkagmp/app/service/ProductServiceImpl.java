@@ -55,17 +55,21 @@ public class ProductServiceImpl implements ProductService {
       Boolean active) throws NoSuchElementException {
     Product product = verifyProduct(productId);
 
-    if (name != null)
+    if (name != null) {
       product.setName(name);
+    }
 
-    if (keyword != null)
+    if (keyword != null) {
       product.setKeyword(keyword);
+    }
 
-    if (raw != null)
+    if (raw != null) {
       product.setRaw(raw);
+    }
 
-    if (active != null)
+    if (active != null) {
       product.setActive(active);
+    }
 
     return productRepository.save(product);
   }
@@ -78,7 +82,8 @@ public class ProductServiceImpl implements ProductService {
   @Override
   public Product verifyProduct(int id) {
     return productRepository.findById(id)
-        .orElseThrow(() -> new NoSuchElementException("Product does not exist " + id));
+                            .orElseThrow(
+                                () -> new NoSuchElementException("Product does not exist " + id));
   }
 
 }
