@@ -1,5 +1,6 @@
 package com.berkagmp.app.service;
 
+import com.berkagmp.app.entity.Product;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -10,6 +11,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -17,6 +19,7 @@ import com.berkagmp.app.entity.Item;
 import com.berkagmp.app.entity.Result;
 import com.berkagmp.app.repo.ItemRepository;
 import com.google.gson.Gson;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class ItemServiceImpl implements ItemService {
@@ -34,10 +37,12 @@ public class ItemServiceImpl implements ItemService {
   private String _webUrl;
 
   ItemRepository itemRepository;
+  ProductService productService;
 
   @Autowired
-  public ItemServiceImpl(ItemRepository itemRepository) {
+  public ItemServiceImpl(ItemRepository itemRepository, ProductService productService) {
     this.itemRepository = itemRepository;
+    this.productService = productService;
   }
 
   @Override
@@ -90,37 +95,37 @@ public class ItemServiceImpl implements ItemService {
 
     Item item = verifyItem(itemId);
 
-      if (pId != null) {
-          item.setPId(pId);
-      }
+    if (pId != null) {
+      item.setPId(pId);
+    }
 
-      if (title != null) {
-          item.setTitle(title);
-      }
+    if (title != null) {
+      item.setTitle(title);
+    }
 
-      if (mallName != null) {
-          item.setMallName(mallName);
-      }
+    if (mallName != null) {
+      item.setMallName(mallName);
+    }
 
-      if (link != null) {
-          item.setLink(link);
-      }
+    if (link != null) {
+      item.setLink(link);
+    }
 
-      if (lprice != null) {
-          item.setLprice(lprice);
-      }
+    if (lprice != null) {
+      item.setLprice(lprice);
+    }
 
-      if (deliveryFee != null) {
-          item.setDeliveryFee(deliveryFee);
-      }
+    if (deliveryFee != null) {
+      item.setDeliveryFee(deliveryFee);
+    }
 
-      if (sum != null) {
-          item.setSum(sum);
-      }
+    if (sum != null) {
+      item.setSum(sum);
+    }
 
-      if (active != null) {
-          item.setActive(active);
-      }
+    if (active != null) {
+      item.setActive(active);
+    }
 
     return itemRepository.save(item);
   }
@@ -180,6 +185,20 @@ public class ItemServiceImpl implements ItemService {
     }
 
     return result;
+  }
+
+  @Transactional
+  public void collect() {
+    List<Product> products = productService.listByActive(true);
+
+    products.forEach(p -> {
+      List<Item> items = collect(p.getKeyword()).getItems().stream().map(i -> {
+        i.setProduct(p);
+        return i;
+      }).collect(Collectors.toList());
+
+      items.forEach(i -> save(i));
+    });
   }
 
 }
