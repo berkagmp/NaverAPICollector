@@ -33,6 +33,4 @@ public interface ItemService {
 
   public Result collect(String keyword);
 
-  public void collectDeliveryFee();
-
 }

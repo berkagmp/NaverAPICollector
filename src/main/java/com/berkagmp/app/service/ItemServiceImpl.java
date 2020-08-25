@@ -182,9 +182,4 @@ public class ItemServiceImpl implements ItemService {
     return result;
   }
 
-  @Override
-  public void collectDeliveryFee() {
-
-  }
-
 }
